@@ -10,7 +10,19 @@ const ChurchList = ({ data = [] }) => {
   // Get unique churches that have been visited (matching VisitTimeline logic)
   // Use both church name and address to determine uniqueness
   const uniqueChurches = [...data]
-    .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE'))
+    .filter(item => {
+      // Debug for Abiding Presence
+      if (item.Church && item.Church.includes('Abiding Presence')) {
+        console.log('Abiding Presence data:', {
+          church: item.Church,
+          visitFlag: item['Visit?'],
+          visitFlagType: typeof item['Visit?'],
+          address: item.Address,
+          visitDate: item['Visit Date']
+        });
+      }
+      return item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE' || item['Visit?'] === 'True');
+    })
     .reduce((acc, item) => {
       // Create unique key using church name and address
       const churchKey = `${item.Church}|${item.Address || 'no-address'}`;

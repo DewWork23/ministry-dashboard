@@ -17,7 +17,7 @@ const VisitTimeline = () => {
   }, []);
 
   const visits = data
-    .filter(item => item['Visit?'] === true || item['Visit?'] === 'TRUE') // Include items with "Visit?" checked or true
+    .filter(item => item['Visit?'] === true || item['Visit?'] === 'TRUE' || item['Visit?'] === 'True') // Include items with "Visit?" checked or true
     .map(item => ({
       church: item.Church,
       date: item['Visit Date'],
@@ -29,7 +29,7 @@ const VisitTimeline = () => {
 
   // Calculate unique churches based on name + address
   const uniqueChurches = data
-    .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE'))
+    .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE' || item['Visit?'] === 'True'))
     .reduce((acc, item) => {
       const churchKey = `${item.Church}|${item.Address || 'no-address'}`;
       if (!acc[churchKey]) {
