@@ -103,7 +103,9 @@ const ChurchList = ({ data = [] }) => {
     <Card className="w-full">
       <CardHeader>
         <div className="flex items-center justify-between mb-4">
-          <CardTitle>Churches Visited A-Z ({filteredChurches.length} unique churches)</CardTitle>
+          <CardTitle>
+            Churches <span className="text-green-600">Visited</span> A-Z ({filteredChurches.length} unique churches)
+          </CardTitle>
           <div className="flex gap-2">
             <button
               onClick={downloadCSV}
@@ -178,7 +180,7 @@ const ChurchList = ({ data = [] }) => {
                       Last visited: {church['Visit Date']}
                     </span>
                   ) : (
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-green-600 font-medium">
                       Visited
                     </span>
                   )}

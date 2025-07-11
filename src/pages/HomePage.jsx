@@ -30,8 +30,10 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Churches Visited</h1>
+        <div className="max-w-full px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-900">
+            Churches <span className="text-green-600">Visited</span>
+          </h1>
           <a 
             href="/ministry-dashboard/dashboard" 
             className="text-sm text-gray-600 hover:text-gray-900"
@@ -40,7 +42,7 @@ const HomePage = () => {
           </a>
         </div>
       </header>
-      <main className="container mx-auto px-4 py-8">
+      <main className="max-w-full px-6 py-8">
         <ChurchList data={data} />
       </main>
     </div>
