@@ -44,7 +44,7 @@ const ChurchList = ({ data = [] }) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Unique Churches Visited A-Z ({filteredChurches.length})</CardTitle>
+        <CardTitle>Churches Visited A-Z ({filteredChurches.length} unique churches)</CardTitle>
         
         <div className="relative mt-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
