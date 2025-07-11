@@ -7,8 +7,18 @@ const ChurchList = ({ data = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
 
-  const sortedChurches = [...data]
+  // Get unique churches that have been visited
+  const uniqueChurches = [...data]
     .filter(item => item.Church && item['Visit Date'])
+    .reduce((acc, item) => {
+      const churchName = item.Church;
+      if (!acc[churchName] || new Date(item['Visit Date']) > new Date(acc[churchName]['Visit Date'])) {
+        acc[churchName] = item;
+      }
+      return acc;
+    }, {});
+
+  const sortedChurches = Object.values(uniqueChurches)
     .sort((a, b) => a.Church.localeCompare(b.Church));
 
   const filteredChurches = sortedChurches.filter(church => {
@@ -34,7 +44,7 @@ const ChurchList = ({ data = [] }) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Churches Visited A-Z ({filteredChurches.length})</CardTitle>
+        <CardTitle>Unique Churches Visited A-Z ({filteredChurches.length})</CardTitle>
         
         <div className="relative mt-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -89,7 +99,7 @@ const ChurchList = ({ data = [] }) => {
                   )}
                   {church['Visit Date'] && (
                     <span className="text-xs text-gray-500">
-                      Visited: {church['Visit Date']}
+                      Last visited: {church['Visit Date']}
                     </span>
                   )}
                 </div>
