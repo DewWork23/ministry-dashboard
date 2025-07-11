@@ -159,19 +159,23 @@ const ChurchList = ({ data = [] }) => {
       </CardHeader>
       
       <CardContent className="max-h-[600px] overflow-y-auto lg:max-h-[800px]">
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredChurches.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No churches found</p>
+            <p className="text-gray-500 text-center py-8 col-span-full">No churches found</p>
           ) : (
             filteredChurches.map((church, index) => (
-              <div key={index} className="border-b border-gray-200 pb-3 last:border-b-0">
+              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                 <h3 className="font-semibold text-lg">{church.Church}</h3>
                 {church.Address && (
                   <p className="text-gray-600 text-sm mt-1">{church.Address}</p>
                 )}
                 <div className="flex items-center gap-2 mt-2">
                   {church.Stage && (
-                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-700">
+                    <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+                      church.Stage === 'Visited' 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-gray-100 text-gray-700'
+                    }`}>
                       {church.Stage}
                     </span>
                   )}

@@ -28,7 +28,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-white shadow-sm">
         <div className="w-full px-4 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">
@@ -42,8 +42,10 @@ const HomePage = () => {
           </a>
         </div>
       </header>
-      <main className="w-full px-4 py-8 lg:px-8">
-        <ChurchList data={data} />
+      <main className="flex-1 w-full p-4 lg:p-8">
+        <div className="h-full">
+          <ChurchList data={data} />
+        </div>
       </main>
     </div>
   );
