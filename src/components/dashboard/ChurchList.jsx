@@ -7,31 +7,13 @@ const ChurchList = ({ data = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
 
-  // Debug: Log all data to see what we're working with
-  console.log('Total data items:', data.length);
-  console.log('First 5 items:', data.slice(0, 5));
-  
-  // Check for specific address
-  const fuquayData = data.filter(item => 
-    item.Address && item.Address.toLowerCase().includes('fuquay')
+  // Simple debug to verify Abiding Presence is now included
+  const abidingPresence = data.find(item => 
+    item.Church && item.Church.includes('Abiding Presence')
   );
-  console.log('Churches in Fuquay:', fuquayData);
-  
-  // Check for 7300 Sunset Lake Rd
-  const sunsetData = data.filter(item => 
-    item.Address && item.Address.includes('7300 Sunset')
-  );
-  console.log('Churches at 7300 Sunset:', sunsetData);
-  
-  // Check all Lutheran churches
-  const allLutheran = data.filter(item => 
-    item.Church && item.Church.toLowerCase().includes('lutheran')
-  );
-  console.log('All Lutheran churches:', allLutheran.map(c => ({
-    name: c.Church,
-    visited: c['Visit?'],
-    address: c.Address
-  })));
+  if (abidingPresence) {
+    console.log('✓ Abiding Presence Lutheran Church found:', abidingPresence['Visit?']);
+  }
 
   // Get unique churches that have been visited (matching VisitTimeline logic)
   // Use both church name and address to determine uniqueness
@@ -58,8 +40,6 @@ const ChurchList = ({ data = [] }) => {
     return hasChurch && isVisited;
   });
 
-  console.log('Total visited churches (before dedup):', allVisited.length);
-
   const uniqueChurches = allVisited.reduce((acc, item) => {
     // Create unique key using church name and address
     const churchKey = `${item.Church.trim()}|${(item.Address || 'no-address').trim()}`;
@@ -70,21 +50,8 @@ const ChurchList = ({ data = [] }) => {
     return acc;
   }, {});
 
-  console.log('Unique churches count:', Object.keys(uniqueChurches).length);
-
   const sortedChurches = Object.values(uniqueChurches)
     .sort((a, b) => a.Church.localeCompare(b.Church));
-
-  // Final check for Abiding Presence
-  const hasAbiding = sortedChurches.some(church => 
-    church.Church.toLowerCase().includes('abiding')
-  );
-  console.log('Abiding Presence in final sorted list?', hasAbiding);
-  if (!hasAbiding) {
-    console.log('Churches starting with A:', 
-      sortedChurches.filter(c => c.Church.toUpperCase().startsWith('A')).map(c => c.Church)
-    );
-  }
 
   const filteredChurches = sortedChurches.filter(church => {
     const matchesSearch = church.Church.toLowerCase().includes(searchTerm.toLowerCase()) ||
