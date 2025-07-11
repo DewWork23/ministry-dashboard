@@ -4,6 +4,7 @@ import StageDistribution from './components/dashboard/StageDistribution';
 import VisitTimeline from './components/dashboard/VisitTimeline';
 import Summary from './components/dashboard/Summary';
 import ChurchList from './components/dashboard/ChurchList';
+import DebugVisits from './components/dashboard/DebugVisits';
 import { fetchSheetData } from './services/sheets';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
               <StageDistribution data={data} />
               <Summary data={data} />
               <ChurchList data={data} />
+              <DebugVisits data={data} />
             </div>
           </div>
         </main>
