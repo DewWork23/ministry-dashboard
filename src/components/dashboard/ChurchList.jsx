@@ -8,7 +8,7 @@ const ChurchList = ({ data = [] }) => {
   const [selectedLetter, setSelectedLetter] = useState('');
 
   const sortedChurches = [...data]
-    .filter(item => item.Church)
+    .filter(item => item.Church && item['Visit Date'])
     .sort((a, b) => a.Church.localeCompare(b.Church));
 
   const filteredChurches = sortedChurches.filter(church => {
@@ -34,7 +34,7 @@ const ChurchList = ({ data = [] }) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Churches Directory ({filteredChurches.length})</CardTitle>
+        <CardTitle>Churches Visited A-Z ({filteredChurches.length})</CardTitle>
         
         <div className="relative mt-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -81,11 +81,18 @@ const ChurchList = ({ data = [] }) => {
                 {church.Address && (
                   <p className="text-gray-600 text-sm mt-1">{church.Address}</p>
                 )}
-                {church.Stage && (
-                  <span className="inline-block mt-2 px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-700">
-                    {church.Stage}
-                  </span>
-                )}
+                <div className="flex items-center gap-2 mt-2">
+                  {church.Stage && (
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-700">
+                      {church.Stage}
+                    </span>
+                  )}
+                  {church['Visit Date'] && (
+                    <span className="text-xs text-gray-500">
+                      Visited: {church['Visit Date']}
+                    </span>
+                  )}
+                </div>
               </div>
             ))
           )}
