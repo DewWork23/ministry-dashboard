@@ -3,6 +3,7 @@ import Header from './components/layout/Header';
 import StageDistribution from './components/dashboard/StageDistribution';
 import VisitTimeline from './components/dashboard/VisitTimeline';
 import Summary from './components/dashboard/Summary';
+import ChurchList from './components/dashboard/ChurchList';
 import { fetchSheetData } from './services/sheets';
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
             <div className="space-y-6">
               <StageDistribution data={data} />
               <Summary data={data} />
+              <ChurchList data={data} />
             </div>
           </div>
         </main>
