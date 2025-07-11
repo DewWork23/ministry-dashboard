@@ -8,12 +8,15 @@ const ChurchList = ({ data = [] }) => {
   const [selectedLetter, setSelectedLetter] = useState('');
 
   // Get unique churches that have been visited (matching VisitTimeline logic)
+  // Use both church name and address to determine uniqueness
   const uniqueChurches = [...data]
     .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE'))
     .reduce((acc, item) => {
-      const churchName = item.Church;
-      if (!acc[churchName] || (item['Visit Date'] && new Date(item['Visit Date']) > new Date(acc[churchName]['Visit Date'] || '1900-01-01'))) {
-        acc[churchName] = item;
+      // Create unique key using church name and address
+      const churchKey = `${item.Church}|${item.Address || 'no-address'}`;
+      
+      if (!acc[churchKey] || (item['Visit Date'] && new Date(item['Visit Date']) > new Date(acc[churchKey]['Visit Date'] || '1900-01-01'))) {
+        acc[churchKey] = item;
       }
       return acc;
     }, {});

@@ -41,9 +41,9 @@ const App = () => {
               <VisitTimeline data={data} />
             </div>
             <div className="space-y-6">
+              <ChurchList data={data} />
               <StageDistribution data={data} />
               <Summary data={data} />
-              <ChurchList data={data} />
             </div>
           </div>
         </main>

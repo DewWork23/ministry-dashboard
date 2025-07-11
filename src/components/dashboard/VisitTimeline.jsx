@@ -27,6 +27,18 @@ const VisitTimeline = () => {
     }))
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  // Calculate unique churches based on name + address
+  const uniqueChurches = data
+    .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE'))
+    .reduce((acc, item) => {
+      const churchKey = `${item.Church}|${item.Address || 'no-address'}`;
+      if (!acc[churchKey]) {
+        acc[churchKey] = item;
+      }
+      return acc;
+    }, {});
+  const uniqueChurchCount = Object.keys(uniqueChurches).length;
+
   const getStatusColor = () => {
     return 'bg-white'; // Neutral color for all statuses
   };
@@ -55,11 +67,17 @@ const VisitTimeline = () => {
         </CardHeader>
 
         <CardContent>
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="p-4 bg-green-100 rounded-md text-center">
               <div className="text-lg font-semibold">{totalVisits}</div>
               <div className="text-sm font-bold text-gray-600">Total Visits</div>
             </div>
+            <div className="p-4 bg-purple-100 rounded-md text-center">
+              <div className="text-lg font-semibold">{uniqueChurchCount}</div>
+              <div className="text-sm font-bold text-gray-600">Unique Churches</div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="p-4 bg-yellow-100 rounded-md text-center">
               <div className="text-lg font-semibold">{thisWeekVisits}</div>
               <div className="text-sm font-bold text-gray-600">This Week</div>
