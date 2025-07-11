@@ -7,13 +7,6 @@ const ChurchList = ({ data = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
 
-  // Simple debug to verify Abiding Presence is now included
-  const abidingPresence = data.find(item => 
-    item.Church && item.Church.includes('Abiding Presence')
-  );
-  if (abidingPresence) {
-    console.log('✓ Abiding Presence Lutheran Church found:', abidingPresence['Visit?']);
-  }
 
   // Get unique churches that have been visited (matching VisitTimeline logic)
   // Use both church name and address to determine uniqueness

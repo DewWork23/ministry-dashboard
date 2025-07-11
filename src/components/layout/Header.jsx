@@ -1,8 +1,16 @@
-import { Menu } from 'lucide-react';
+import { Menu, LogOut, Home } from 'lucide-react';
 import PropTypes from 'prop-types';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png'; // Adjust the path to your logo image
 
 const Header = ({ onMenuClick }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    sessionStorage.removeItem('dashboardAuth');
+    navigate('/');
+  };
+
   return (
     <header className="bg-white shadow-sm">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +39,20 @@ const Header = ({ onMenuClick }) => {
 
           {/* Right side - Actions */}
           <div className="flex items-center gap-4">
-            {/* <button className="p-1 rounded-lg hover:bg-gray-100 relative">
-              <Bell className="h-6 w-6 text-gray-600" />
-              <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+            <Link 
+              to="/" 
+              className="flex items-center gap-1 p-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg"
+            >
+              <Home className="h-4 w-4" />
+              <span className="hidden sm:inline">Public View</span>
+            </Link>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center gap-1 p-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg"
+            >
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Logout</span>
             </button>
-            <button className="p-1 rounded-lg hover:bg-gray-100">
-              <Settings className="h-6 w-6 text-gray-600" />
-            </button> */}
           </div>
         </div>
       </div>
