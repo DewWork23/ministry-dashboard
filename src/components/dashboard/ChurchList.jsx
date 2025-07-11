@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Search } from 'lucide-react';
+import { Search, Download, Share2 } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 const ChurchList = ({ data = [] }) => {
@@ -44,12 +44,63 @@ const ChurchList = ({ data = [] }) => {
 
   const availableLetters = getAvailableLetters();
 
+  const downloadCSV = () => {
+    const csvContent = [
+      ['Church Name', 'Address', 'Last Visit Date'],
+      ...sortedChurches.map(church => [
+        church.Church,
+        church.Address || '',
+        church['Visit Date'] || 'No date recorded'
+      ])
+    ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `churches-visited-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
+
+  const copyToClipboard = () => {
+    const textContent = sortedChurches.map(church => 
+      `${church.Church} - ${church.Address || 'No address'}`
+    ).join('\n');
+
+    navigator.clipboard.writeText(textContent).then(() => {
+      alert('Church list copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Churches Visited A-Z ({filteredChurches.length} unique churches)</CardTitle>
+        <div className="flex items-center justify-between mb-4">
+          <CardTitle>Churches Visited A-Z ({filteredChurches.length} unique churches)</CardTitle>
+          <div className="flex gap-2">
+            <button
+              onClick={downloadCSV}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded"
+              title="Download as CSV"
+            >
+              <Download className="h-4 w-4" />
+            </button>
+            <button
+              onClick={copyToClipboard}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded"
+              title="Copy to clipboard"
+            >
+              <Share2 className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
         
-        <div className="relative mt-4">
+        <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <input
             type="text"
