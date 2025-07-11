@@ -9,12 +9,29 @@ const ChurchList = ({ data = [] }) => {
 
   // Debug: Log all data to see what we're working with
   console.log('Total data items:', data.length);
+  console.log('First 5 items:', data.slice(0, 5));
   
-  // Check for Abiding Presence in raw data
-  const abidingData = data.filter(item => 
-    item.Church && item.Church.toLowerCase().includes('abiding')
+  // Check for specific address
+  const fuquayData = data.filter(item => 
+    item.Address && item.Address.toLowerCase().includes('fuquay')
   );
-  console.log('Churches with "abiding" in name:', abidingData);
+  console.log('Churches in Fuquay:', fuquayData);
+  
+  // Check for 7300 Sunset Lake Rd
+  const sunsetData = data.filter(item => 
+    item.Address && item.Address.includes('7300 Sunset')
+  );
+  console.log('Churches at 7300 Sunset:', sunsetData);
+  
+  // Check all Lutheran churches
+  const allLutheran = data.filter(item => 
+    item.Church && item.Church.toLowerCase().includes('lutheran')
+  );
+  console.log('All Lutheran churches:', allLutheran.map(c => ({
+    name: c.Church,
+    visited: c['Visit?'],
+    address: c.Address
+  })));
 
   // Get unique churches that have been visited (matching VisitTimeline logic)
   // Use both church name and address to determine uniqueness
