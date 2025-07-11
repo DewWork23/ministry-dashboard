@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Search, Download, Share2 } from 'lucide-react';
 import PropTypes from 'prop-types';
 
@@ -100,12 +99,12 @@ const ChurchList = ({ data = [] }) => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <div className="w-full h-full bg-white">
+      <div className="p-4 lg:p-6">
         <div className="flex items-center justify-between mb-4">
-          <CardTitle>
+          <h2 className="text-xl font-bold">
             Churches <span className="text-green-600">Visited</span> A-Z ({filteredChurches.length} unique churches)
-          </CardTitle>
+          </h2>
           <div className="flex gap-2">
             <button
               onClick={downloadCSV}
@@ -156,9 +155,9 @@ const ChurchList = ({ data = [] }) => {
             </button>
           ))}
         </div>
-      </CardHeader>
+      </div>
       
-      <CardContent className="max-h-[600px] overflow-y-auto lg:max-h-[800px]">
+      <div className="px-4 lg:px-6 pb-4 lg:pb-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredChurches.length === 0 ? (
             <p className="text-gray-500 text-center py-8 col-span-full">No churches found</p>
@@ -179,22 +178,13 @@ const ChurchList = ({ data = [] }) => {
                       {church.Stage}
                     </span>
                   )}
-                  {church['Visit Date'] ? (
-                    <span className="text-xs text-gray-500">
-                      Last visited: {church['Visit Date']}
-                    </span>
-                  ) : (
-                    <span className="text-xs text-green-600 font-medium">
-                      Visited
-                    </span>
-                  )}
                 </div>
               </div>
             ))
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

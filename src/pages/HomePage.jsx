@@ -42,10 +42,8 @@ const HomePage = () => {
           </a>
         </div>
       </header>
-      <main className="flex-1 w-full p-4 lg:p-8">
-        <div className="h-full">
-          <ChurchList data={data} />
-        </div>
+      <main className="flex-1 w-full">
+        <ChurchList data={data} />
       </main>
     </div>
   );
