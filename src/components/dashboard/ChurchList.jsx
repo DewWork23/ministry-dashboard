@@ -103,7 +103,7 @@ const ChurchList = ({ data = [] }) => {
       <div className="p-4 lg:p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold">
-            Churches <span className="text-green-600">Visited</span> A-Z ({filteredChurches.length} unique churches)
+            Churches Visited A-Z ({filteredChurches.length} unique churches)
           </h2>
           <div className="flex gap-2">
             <button
@@ -172,7 +172,11 @@ const ChurchList = ({ data = [] }) => {
                   {church.Stage && (
                     <span className={`inline-block px-2 py-1 text-xs rounded-full ${
                       church.Stage === 'Visited' 
-                        ? 'bg-green-100 text-green-700' 
+                        ? 'bg-red-100 text-red-700' 
+                        : church.Stage === 'Donated'
+                        ? 'bg-green-100 text-green-700'
+                        : church.Stage === 'Prospect'
+                        ? 'bg-orange-100 text-orange-700'
                         : 'bg-gray-100 text-gray-700'
                     }`}>
                       {church.Stage}

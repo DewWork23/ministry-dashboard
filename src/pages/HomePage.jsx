@@ -32,7 +32,7 @@ const HomePage = () => {
       <header className="bg-white shadow-sm">
         <div className="w-full px-4 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">
-            Churches <span className="text-green-600">Visited</span>
+            Churches Visited
           </h1>
           <a 
             href="/ministry-dashboard/dashboard" 
