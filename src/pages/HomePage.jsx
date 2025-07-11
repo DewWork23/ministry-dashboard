@@ -30,7 +30,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-sm">
-        <div className="max-w-full px-6 py-4 flex justify-between items-center">
+        <div className="w-full px-4 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">
             Churches <span className="text-green-600">Visited</span>
           </h1>
@@ -42,7 +42,7 @@ const HomePage = () => {
           </a>
         </div>
       </header>
-      <main className="max-w-full px-6 py-8">
+      <main className="w-full px-4 py-8 lg:px-8">
         <ChurchList data={data} />
       </main>
     </div>

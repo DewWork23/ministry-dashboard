@@ -158,7 +158,7 @@ const ChurchList = ({ data = [] }) => {
         </div>
       </CardHeader>
       
-      <CardContent className="max-h-[600px] overflow-y-auto">
+      <CardContent className="max-h-[600px] overflow-y-auto lg:max-h-[800px]">
         <div className="space-y-4">
           {filteredChurches.length === 0 ? (
             <p className="text-gray-500 text-center py-8">No churches found</p>
