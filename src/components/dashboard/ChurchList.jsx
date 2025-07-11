@@ -7,12 +7,12 @@ const ChurchList = ({ data = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
 
-  // Get unique churches that have been visited
+  // Get unique churches that have been visited (matching VisitTimeline logic)
   const uniqueChurches = [...data]
-    .filter(item => item.Church && item['Visit Date'])
+    .filter(item => item.Church && (item['Visit?'] === true || item['Visit?'] === 'TRUE'))
     .reduce((acc, item) => {
       const churchName = item.Church;
-      if (!acc[churchName] || new Date(item['Visit Date']) > new Date(acc[churchName]['Visit Date'])) {
+      if (!acc[churchName] || (item['Visit Date'] && new Date(item['Visit Date']) > new Date(acc[churchName]['Visit Date'] || '1900-01-01'))) {
         acc[churchName] = item;
       }
       return acc;
@@ -97,9 +97,13 @@ const ChurchList = ({ data = [] }) => {
                       {church.Stage}
                     </span>
                   )}
-                  {church['Visit Date'] && (
+                  {church['Visit Date'] ? (
                     <span className="text-xs text-gray-500">
                       Last visited: {church['Visit Date']}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-gray-500">
+                      Visited
                     </span>
                   )}
                 </div>
@@ -118,6 +122,8 @@ ChurchList.propTypes = {
       Church: PropTypes.string,
       Address: PropTypes.string,
       Stage: PropTypes.string,
+      'Visit?': PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+      'Visit Date': PropTypes.string,
     })
   ),
 };
